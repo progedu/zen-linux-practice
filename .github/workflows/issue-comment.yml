@@ -1,0 +1,28 @@
+name: issueに応答します
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: issueに応答
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.payload.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: [
+                "issueありがとうございました。",
+                "",
+                "そしてLinuxの学習お疲れ様でした！",
+                "",
+                "今後も引き続き学習していき、Linuxを使いこなせる人を目指してください。",
+                "",
+                "応援しています！（レポートの提出や単位認定試験の勉強もお忘れなく！）"
+              ].join("\n")
+            })
